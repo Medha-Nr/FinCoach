@@ -89,7 +89,7 @@ export const testimonialsData: TestimonialItem[] = [
     name: "Sarah Jacobs",
     role: "Small Business Owner",
     image: "https://randomuser.me/api/portraits/women/75.jpg",
-    quote: "Welth has transformed how I manage my business finances...",
+    quote: "FinCoach has transformed how I manage my business finances...",
   },
   {
     name: "Aditya Sharma",
@@ -103,6 +103,6 @@ export const testimonialsData: TestimonialItem[] = [
     role: "Financial Advisor",
     image: "https://randomuser.me/api/portraits/women/74.jpg",
     quote:
-      "I recommend Welth to all my clients. The multi-currency support and detailed analytics make it perfect for international investors.",
+      "I recommend FinCoach to all my clients. The multi-currency support and detailed analytics make it perfect for international investors.",
   },
 ];
