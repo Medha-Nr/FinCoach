@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useCallback } from "react"; 
+import { useEffect, useCallback } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CalendarIcon, Loader2 } from "lucide-react";
@@ -90,7 +90,7 @@ export function AddTransactionForm({
     setValue,
     reset,
   } = useForm<TransactionFormValues>({
-    resolver: zodResolver(transactionSchema) as any, 
+    resolver: zodResolver(transactionSchema) as any,
     defaultValues: formDefaultValues,
   });
 
@@ -113,7 +113,6 @@ export function AddTransactionForm({
     }
   };
 
- 
   const handleScanComplete = useCallback(
     (scannedData: any) => {
       if (scannedData) {
@@ -179,7 +178,7 @@ export function AddTransactionForm({
         )}
       </div>
 
-      {/* Amount and Account */}
+      {/* Amount and Account Grid */}
       <div className="grid gap-6 md:grid-cols-2">
         <div className="space-y-2">
           <label className="text-sm font-medium">Amount</label>
@@ -207,7 +206,7 @@ export function AddTransactionForm({
                 <SelectContent>
                   {accounts.map((account) => (
                     <SelectItem key={account.id} value={account.id}>
-                      {account.name} ($
+                      {account.name} (₹
                       {parseFloat(account.balance.toString()).toFixed(2)})
                     </SelectItem>
                   ))}
@@ -229,63 +228,64 @@ export function AddTransactionForm({
         </div>
       </div>
 
-      {/* Category */}
-      <div className="space-y-2">
-        <label className="text-sm font-medium">Category</label>
-        <Controller
-          name="category"
-          control={control}
-          render={({ field }) => (
-            <Select onValueChange={field.onChange} value={field.value}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select category" />
-              </SelectTrigger>
-              <SelectContent>
-                {filteredCategories.map((category) => (
-                  <SelectItem key={category.id} value={category.id}>
-                    {category.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+      {/* Category and Date Grid */}
+      <div className="grid gap-6 md:grid-cols-2">
+        <div className="space-y-2">
+          <label className="text-sm font-medium">Category</label>
+          <Controller
+            name="category"
+            control={control}
+            render={({ field }) => (
+              <Select onValueChange={field.onChange} value={field.value}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select category" />
+                </SelectTrigger>
+                <SelectContent>
+                  {filteredCategories.map((category) => (
+                    <SelectItem key={category.id} value={category.id}>
+                      {category.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )}
+          />
+          {errors.category && (
+            <p className="text-sm text-red-500">{errors.category.message}</p>
           )}
-        />
-        {errors.category && (
-          <p className="text-sm text-red-500">{errors.category.message}</p>
-        )}
-      </div>
+        </div>
 
-      {/* Date */}
-      <div className="space-y-2">
-        <label className="text-sm font-medium">Date</label>
-        <Popover>
-          <PopoverTrigger asChild>
-            <Button
-              variant="outline"
-              className={cn(
-                "w-full pl-3 text-left font-normal",
-                !date && "text-muted-foreground"
-              )}
-            >
-              {date ? format(date, "PPP") : <span>Pick a date</span>}
-              <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-auto p-0" align="start">
-            <Calendar
-              mode="single"
-              selected={date}
-              onSelect={(date) => date && setValue("date", date)}
-              disabled={(date) =>
-                date > new Date() || date < new Date("1900-01-01")
-              }
-              initialFocus
-            />
-          </PopoverContent>
-        </Popover>
-        {errors.date && (
-          <p className="text-sm text-red-500">{errors.date.message}</p>
-        )}
+        <div className="space-y-2">
+          <label className="text-sm font-medium">Date</label>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                className={cn(
+                  "w-full pl-3 text-left font-normal",
+                  !date && "text-muted-foreground"
+                )}
+              >
+                {date ? format(date, "PPP") : <span>Pick a date</span>}
+                <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0" align="start">
+              <Calendar
+                mode="single"
+                selected={date}
+                onSelect={(date) => date && setValue("date", date)}
+                disabled={(date) =>
+                  date > new Date() || date < new Date("1900-01-01")
+                }
+                initialFocus
+              />
+            </PopoverContent>
+          </Popover>
+          {errors.date && (
+            <p className="text-sm text-red-500">{errors.date.message}</p>
+          )}
+        </div>
       </div>
 
       {/* Description */}
@@ -298,7 +298,7 @@ export function AddTransactionForm({
       </div>
 
       {/* Recurring Toggle */}
-      <div className="flex flex-row items-center justify-between rounded-lg border p-4">
+      <div className="flex flex-row items-center justify-between rounded-lg border p-4 shadow-sm bg-gray-50/50">
         <div className="space-y-0.5">
           <label className="text-base font-medium">Recurring Transaction</label>
           <div className="text-sm text-muted-foreground">
@@ -347,7 +347,7 @@ export function AddTransactionForm({
       )}
 
       {/* Actions */}
-      <div className="flex gap-4">
+      <div className="flex flex-col items-center gap-4 pt-4 border-t">
         <Button
           type="button"
           variant="outline"

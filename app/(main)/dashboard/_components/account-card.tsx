@@ -71,7 +71,7 @@ export function AccountCard({ account }: AccountCardProps) {
         <CardContent>
           <div className="text-2xl font-bold">
             {/* 3. Ensure balance is a string before parsing */}
-            ${parseFloat(balance.toString()).toFixed(2)}
+            ₹{parseFloat(balance.toString()).toFixed(2)}
           </div>
           <p className="text-xs text-muted-foreground">
             {type.charAt(0) + type.slice(1).toLowerCase()} Account

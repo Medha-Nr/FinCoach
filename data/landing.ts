@@ -25,7 +25,7 @@ export interface TestimonialItem {
 // 2. Stats Data 
 export const statsData = [
   { value: "50K+", label: "Active Users" },
-  { value: "$2B+", label: "Transactions Tracked" },
+  { value: "₹2B+", label: "Transactions Tracked" },
   { value: "99.9%", label: "Uptime" },
   { value: "4.9/5", label: "User Rating" },
 ];
@@ -44,23 +44,23 @@ export const featuresData: FeatureItem[] = [
   },
   {
     icon: PieChart,
-    title: "Budget Planning",
+    title: "Budget Management",
     description: "Create and manage budgets with intelligent recommendations",
   },
   {
     icon: CreditCard,
     title: "Multi-Account Support",
-    description: "Manage multiple accounts and credit cards in one place",
+    description: "Manage multiple accounts in one place",
   },
   {
     icon: Globe,
-    title: "Multi-Currency",
-    description: "Support for multiple currencies with real-time conversion",
+    title: "Recurring Transactions",
+    description: "Automatically track and manage your recurring bills, subscriptions, and salary deposits in the background.",
   },
   {
     icon: Zap,
-    title: "Automated Insights",
-    description: "Get automated financial insights and recommendations",
+    title: "Robust Security",
+    description: "Keep your financial data safe with secure authentication, advanced bot protection, and rate limiting.",
   },
 ];
 

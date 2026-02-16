@@ -122,7 +122,7 @@ const LandingPage = () => {
               size="lg"
               className="bg-white text-red-950 hover:bg-green-50 animate-bounce"
             >
-              Start Free Trial
+              Get Started
             </Button>
           </Link>
         </div>

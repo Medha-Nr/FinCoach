@@ -24,14 +24,15 @@ import { cn } from "@/lib/utils";
 import { Account, Transaction } from "@prisma/client";
 
 const COLORS = [
-  "#FF6B6B",
-  "#4ECDC4",
-  "#45B7D1",
-  "#96CEB4",
-  "#FFEEAD",
-  "#D4A5A5",
-  "#9FA8DA",
+  "#370617",
+  "#6a040f",
+  "#d00000",
+  "#e85d04",
+  "#faa307",
+  "#ffe53f",
+  "#faf0ca",
 ];
+//FF6B6B 
 
 // 1. Define Props Interface
 // We override 'amount' to be a number because your server action serializes it
@@ -148,7 +149,7 @@ export function TransactionOverview({
                       ) : (
                         <ArrowUpRight className="mr-1 h-4 w-4" />
                       )}
-                      ${transaction.amount.toFixed(2)}
+                      ₹{transaction.amount.toFixed(2)}
                     </div>
                   </div>
                 </div>
@@ -182,7 +183,7 @@ export function TransactionOverview({
                     fill="#8884d8"
                     dataKey="value"
                     label={({ name, value }) =>
-                      `${name}: $${value.toFixed(2)}`
+                      `${name}: ₹${value.toFixed(2)}`
                     }
                   >
                     {pieChartData.map((entry, index) => (
@@ -193,7 +194,7 @@ export function TransactionOverview({
                     ))}
                   </Pie>
                   <Tooltip
-                    formatter={(value:any) => `$${parseFloat(value).toFixed(2)}`}
+                    formatter={(value:any) => `₹${parseFloat(value).toFixed(2)}`}
                     contentStyle={{
                       backgroundColor: "hsl(var(--popover))",
                       border: "1px solid hsl(var(--border))",
