@@ -17,20 +17,30 @@ export default async function AddTransactionPage({
   const { edit: editId } = await searchParams;
 
   let initialData = null;
-  if (editId) {
-    const transaction = await getTransaction(editId);
-    initialData = transaction;
+
+  // 3. Safety Net: Only fetch if editId exists AND isn't the word "undefined"
+  if (editId && editId !== "undefined") {
+    try {
+      // Try to fetch the transaction
+      initialData = await getTransaction(editId);
+    } catch (error) {
+      // If it fails (e.g., deleted or invalid ID), catch the error so the page DOESN'T crash
+      console.error("Could not fetch transaction:", error);
+    }
   }
 
   return (
     <div className="max-w-3xl mx-auto px-5">
       <div className="flex justify-center md:justify-normal mb-8">
-        <h1 className="text-5xl gradient-title ">Add Transaction</h1>
+        {/* Dynamically change title based on if data was found */}
+        <h1 className="text-5xl gradient-title ">
+          {initialData ? "Edit Transaction" : "Add Transaction"}
+        </h1>
       </div>
       <AddTransactionForm
         accounts={accounts}
         categories={defaultCategories}
-        editMode={!!editId}
+        editMode={!!initialData} // Only go into edit mode if we actually found the data!
         initialData={initialData}
       />
     </div>

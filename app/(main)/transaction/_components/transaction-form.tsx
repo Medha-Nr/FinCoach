@@ -5,7 +5,7 @@ import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CalendarIcon, Loader2 } from "lucide-react";
 import { format } from "date-fns";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation"; // Removed useSearchParams
 import useFetch from "@/hooks/use-fetch";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -55,8 +55,6 @@ export function AddTransactionForm({
   initialData = null,
 }: AddTransactionFormProps) {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const editId = searchParams.get("edit");
 
   const formDefaultValues: TransactionFormValues =
     editMode && initialData
@@ -106,8 +104,9 @@ export function AddTransactionForm({
       amount: parseFloat(data.amount),
     };
 
-    if (editMode && editId) {
-      transactionFn(editId, formData);
+    // Use initialData.id instead of the URL search param
+    if (editMode && initialData) {
+      transactionFn(initialData.id, formData);
     } else {
       transactionFn(formData);
     }

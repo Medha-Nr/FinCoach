@@ -444,7 +444,7 @@ export function TransactionTable({ transactions }: TransactionTableProps) {
                         <DropdownMenuItem
                           onClick={() =>
                             router.push(
-                              `/transaction/create?edit=₹{transaction.id}`
+                              `/transaction/create?edit=${transaction.id}`
                             )
                           }
                         >
