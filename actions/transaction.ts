@@ -8,6 +8,7 @@ import aj from "@/lib/arcjet";
 import { request } from "@arcjet/next";
 import { Transaction } from "@prisma/client"; // Import Prisma types
 
+
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
 
 // 1. Helper to serialize Prisma Decimal to number
@@ -257,7 +258,7 @@ export async function scanReceipt(file: File) {
       - Date (in ISO format)
       - Description or items purchased (brief summary)
       - Merchant/store name
-      - Suggested category (one of: housing,transportation,groceries,utilities,entertainment,food,shopping,healthcare,education,personal,travel,insurance,gifts,bills,other-expense )
+      - Suggested category (one of: housing, food-groceries, transportation, utilities, debt-emi, health-fitness, food-delivery, socializing-nightlife, shopping-fashion, hobbies-gear, entertainment-ott, gifts, inv-mutual-funds, inv-bonds-stocks, sav-emergency, inv-gold, inv-crypto, health-term-insurance, other-expense)
       
       Only respond with valid JSON in this exact format:
       {
@@ -268,7 +269,7 @@ export async function scanReceipt(file: File) {
         "category": "string"
       }
 
-      If its not a recipt, return an empty object
+      If its not a receipt, return an empty object
     `;
 
     const result = await model.generateContent([

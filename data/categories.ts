@@ -2,180 +2,52 @@
 export interface Category {
   id: string;
   name: string;
-  type: "INCOME" | "EXPENSE"; // Specific string literals for better safety
+  type: "INCOME" | "EXPENSE";
   color: string;
   icon: string;
-  subcategories?: string[]; // Optional array of strings
+  subcategories?: string[];
 }
 
 export const defaultCategories: Category[] = [
-  // Income Categories
-  {
-    id: "salary",
-    name: "Salary",
-    type: "INCOME",
-    color: "#22c55e", // green-500
-    icon: "Wallet",
-  },
-  {
-    id: "freelance",
-    name: "Freelance",
-    type: "INCOME",
-    color: "#06b6d4", // cyan-500
-    icon: "Laptop",
-  },
-  {
-    id: "investments",
-    name: "Investments",
-    type: "INCOME",
-    color: "#6366f1", // indigo-500
-    icon: "TrendingUp",
-  },
-  {
-    id: "business",
-    name: "Business",
-    type: "INCOME",
-    color: "#ec4899", // pink-500
-    icon: "Building",
-  },
-  {
-    id: "rental",
-    name: "Rental",
-    type: "INCOME",
-    color: "#f59e0b", // amber-500
-    icon: "Home",
-  },
-  {
-    id: "other-income",
-    name: "Other Income",
-    type: "INCOME",
-    color: "#64748b", // slate-500
-    icon: "Plus",
-  },
+  // --- INCOME CATEGORIES ---
+  { id: "salary", name: "Salary", type: "INCOME", color: "#22c55e", icon: "Wallet" },
+  { id: "allowance", name: "Allowance/Pocket Money", type: "INCOME", color: "#a855f7", icon: "HandCoins" },
+  { id: "side-hustle", name: "Side Hustle/Freelance", type: "INCOME", color: "#06b6d4", icon: "Laptop" },
+  { id: "investments", name: "Investments", type: "INCOME", color: "#6366f1", icon: "TrendingUp" },
+  { id: "cashbacks", name: "Cashbacks & Rewards", type: "INCOME", color: "#eab308", icon: "TicketPercent" },
+  { id: "other-income", name: "Other Income", type: "INCOME", color: "#64748b", icon: "Plus" },
 
-  // Expense Categories
-  {
-    id: "housing",
-    name: "Housing",
-    type: "EXPENSE",
-    color: "#ef4444", // red-500
-    icon: "Home",
-    subcategories: ["Rent", "Mortgage", "Property Tax", "Maintenance"],
-  },
-  {
-    id: "transportation",
-    name: "Transportation",
-    type: "EXPENSE",
-    color: "#f97316", // orange-500
-    icon: "Car",
-    subcategories: ["Fuel", "Public Transport", "Maintenance", "Parking"],
-  },
-  {
-    id: "groceries",
-    name: "Groceries",
-    type: "EXPENSE",
-    color: "#84cc16", // lime-500
-    icon: "Shopping",
-  },
-  {
-    id: "utilities",
-    name: "Utilities",
-    type: "EXPENSE",
-    color: "#06b6d4", // cyan-500
-    icon: "Zap",
-    subcategories: ["Electricity", "Water", "Gas", "Internet", "Phone"],
-  },
-  {
-    id: "entertainment",
-    name: "Entertainment",
-    type: "EXPENSE",
-    color: "#8b5cf6", // violet-500
-    icon: "Film",
-    subcategories: ["Movies", "Games", "Streaming Services"],
-  },
-  {
-    id: "food",
-    name: "Food",
-    type: "EXPENSE",
-    color: "#f43f5e", // rose-500
-    icon: "UtensilsCrossed",
-  },
-  {
-    id: "shopping",
-    name: "Shopping",
-    type: "EXPENSE",
-    color: "#ec4899", // pink-500
-    icon: "ShoppingBag",
-    subcategories: ["Clothing", "Electronics", "Home Goods"],
-  },
-  {
-    id: "healthcare",
-    name: "Healthcare",
-    type: "EXPENSE",
-    color: "#14b8a6", // teal-500
-    icon: "HeartPulse",
-    subcategories: ["Medical", "Dental", "Pharmacy", "Insurance"],
-  },
-  {
-    id: "education",
-    name: "Education",
-    type: "EXPENSE",
-    color: "#6366f1", // indigo-500
-    icon: "GraduationCap",
-    subcategories: ["Tuition", "Books", "Courses"],
-  },
-  {
-    id: "personal",
-    name: "Personal Care",
-    type: "EXPENSE",
-    color: "#d946ef", // fuchsia-500
-    icon: "Smile",
-    subcategories: ["Haircut", "Gym", "Beauty"],
-  },
-  {
-    id: "travel",
-    name: "Travel",
-    type: "EXPENSE",
-    color: "#0ea5e9", // sky-500
-    icon: "Plane",
-  },
-  {
-    id: "insurance",
-    name: "Insurance",
-    type: "EXPENSE",
-    color: "#64748b", // slate-500
-    icon: "Shield",
-    subcategories: ["Life", "Home", "Vehicle"],
-  },
-  {
-    id: "gifts",
-    name: "Gifts & Donations",
-    type: "EXPENSE",
-    color: "#f472b6", // pink-400
-    icon: "Gift",
-  },
-  {
-    id: "bills",
-    name: "Bills & Fees",
-    type: "EXPENSE",
-    color: "#fb7185", // rose-400
-    icon: "Receipt",
-    subcategories: ["Bank Fees", "Late Fees", "Service Charges"],
-  },
-  {
-    id: "other-expense",
-    name: "Other Expenses",
-    type: "EXPENSE",
-    color: "#94a3b8", // slate-400
-    icon: "MoreHorizontal",
-  },
+  // --- EXPENSE CATEGORIES ---
+  // NEEDS (The Essentials) for Survival
+  { id: "housing", name: "Rent & PG", type: "EXPENSE", color: "#ef4444", icon: "Home" },
+  { id: "food-groceries", name: "Groceries & Essentials", type: "EXPENSE", color: "#84cc16", icon: "ShoppingBasket" },
+  { id: "transportation", name: "Transport", type: "EXPENSE", color: "#f97316", icon: "Car" },
+  { id: "utilities", name: "Bills & Utilities", type: "EXPENSE", color: "#0ea5e9", icon: "Zap" },
+  { id: "debt-emi", name: "EMI & Debt", type: "EXPENSE", color: "#475569", icon: "CreditCard" },
+  { id: "health-fitness", name: "Health & Fitness", type: "EXPENSE", color: "#14b8a6", icon: "HeartPulse", subcategories: ["Gym", "Medicines", "Doctor"] },
+
+  // WANTS (The Psychological Leaks) for Lifestyle
+  { id: "food-delivery", name: "Food Delivery", type: "EXPENSE", color: "#fb923c", icon: "Truck" },
+  { id: "socializing-nightlife", name: "Socializing & Nightlife", type: "EXPENSE", color: "#f43f5e", icon: "GlassWater" },
+  { id: "shopping-fashion", name: "Shopping & Fashion", type: "EXPENSE", color: "#ec4899", icon: "ShoppingBag" },
+  { id: "hobbies-gear", name: "Hobbies & Gear", type: "EXPENSE", color: "#8b5cf6", icon: "Gamepad2" },
+  { id: "entertainment-ott", name: "Entertainment & OTT", type: "EXPENSE", color: "#6366f1", icon: "Film" },
+  { id: "gifts", name: "Gifts", type: "EXPENSE", color: "#f472b6", icon: "Gift" },
+  { id: "other-expense", name: "Other Expenses", type: "EXPENSE", color: "#94a3b8", icon: "MoreHorizontal" },
+
+  // SAVINGS & INVESTMENTS (20%) for Future or Wealth Building
+  { id: "inv-mutual-funds", name: "Mutual Funds (SIP)", type: "EXPENSE", color: "#10b981", icon: "LineChart" },
+  { id: "inv-bonds-stocks", name: "Stocks & Bonds", type: "EXPENSE", color: "#34d399", icon: "BarChart3" },
+  { id: "sav-emergency", name: "Emergency Fund / FD", type: "EXPENSE", color: "#059669", icon: "ShieldCheck" },
+  { id: "inv-gold", name: "Gold & Silver", type: "EXPENSE", color: "#fbbf24", icon: "Gem" },
+  { id: "inv-crypto", name: "Crypto & Alts", type: "EXPENSE", color: "#f59e0b", icon: "Coins" },
+  { id: "health-term-insurance", name: "Health & Term Insurance", type: "EXPENSE", color: "#0d9488", icon: "ShieldCheck" },
 ];
 
-// 2. Explicitly type the accumulator as a Record<string, string>
 export const categoryColors: Record<string, string> = defaultCategories.reduce(
   (acc, category) => {
     acc[category.id] = category.color;
     return acc;
   },
-  {} as Record<string, string> // Initial value cast
+  {} as Record<string, string>
 );

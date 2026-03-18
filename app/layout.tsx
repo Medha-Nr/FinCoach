@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/header";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "sonner";
+import { SpeedInsights } from "@vercel/speed-insights/next"
  
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,7 +21,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <Header/>
           <main className="min-h-screen">{children}</main>
           <Toaster richColors />
-          
+<SpeedInsights />
       </body>
     </html>
     </ClerkProvider>

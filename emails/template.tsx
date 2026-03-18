@@ -18,8 +18,7 @@ interface MonthlyReportData {
     totalExpenses: number;
     byCategory: Record<string, number>;
   };
-  insights?: string[];
-}
+insights?: { label: string; description: string }[];}
 
 interface BudgetAlertData {
   percentageUsed: number;
@@ -33,6 +32,14 @@ interface EmailTemplateProps {
   type: "monthly-report" | "budget-alert";
   data: MonthlyReportData | BudgetAlertData;
 }
+
+const formatCurrency = (amount: number) => {
+  return new Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: "INR",
+    maximumFractionDigits: 0, // This removes the decimals!
+  }).format(amount);
+};
 
 export default function EmailTemplate({
   userName = "",
@@ -55,48 +62,67 @@ export default function EmailTemplate({
             </Text>
 
             {/* Main Stats */}
-            <Section style={styles.statsContainer}>
-              <div style={styles.stat}>
-                <Text style={styles.text}>Total Income</Text>
-                <Text style={styles.heading}>₹{reportData?.stats.totalIncome}</Text>
-              </div>
-              <div style={styles.stat}>
-                <Text style={styles.text}>Total Expenses</Text>
-                <Text style={styles.heading}>₹{reportData?.stats.totalExpenses}</Text>
-              </div>
-              <div style={styles.stat}>
-                <Text style={styles.text}>Net</Text>
-                <Text style={styles.heading}>
-                  ₹{reportData?.stats.totalIncome - reportData?.stats.totalExpenses}
-                </Text>
-              </div>
-            </Section>
+<Section style={styles.statsContainer}>
+  <div style={styles.stat}>
+    <Text style={styles.text}>Total Income</Text>
+    {/* Removed hardcoded ₹ and added formatter */}
+    <Text style={styles.heading}>{formatCurrency(reportData?.stats.totalIncome)}</Text>
+  </div>
+  <div style={styles.stat}>
+    <Text style={styles.text}>Total Expenses</Text>
+    <Text style={styles.heading}>{formatCurrency(reportData?.stats.totalExpenses)}</Text>
+  </div>
+  <div style={styles.stat}>
+    <Text style={styles.text}>Net</Text>
+    <Text style={styles.heading}>
+      {/* This calculation often causes decimals, formatCurrency fixes it */}
+      {formatCurrency(reportData?.stats.totalIncome - reportData?.stats.totalExpenses)}
+    </Text>
+  </div>
+</Section>
 
             {/* Category Breakdown */}
             {reportData?.stats?.byCategory && (
               <Section style={styles.section}>
                 <Heading style={styles.heading}>Expenses by Category</Heading>
-                {Object.entries(reportData?.stats.byCategory).map(
-                  ([category, amount]) => (
-                    <div key={category} style={styles.row}>
-                      <Text style={styles.text}>{category}</Text>
-                      <Text style={styles.text}>{amount}</Text>
-                    </div>
-                  )
-                )}
+                {Object.entries(reportData?.stats.byCategory).map(([category, amount]) => (
+  <table 
+  key={category} 
+  width="100%" 
+  style={{ borderBottom: "1px solid #e5e7eb", tableLayout: "fixed" }}
+  cellPadding="0" 
+  cellSpacing="0"
+>
+  <tr>
+    <td align="left" style={{ padding: "12px 0" }}>
+      <Text style={{ ...styles.text, margin: 0 }}>{category}</Text>
+    </td>
+    <td align="right" style={{ padding: "12px 0" }}>
+      <Text style={{ ...styles.text, fontWeight: "bold", margin: 0, textAlign: "right" }}>
+        {formatCurrency(amount)}
+      </Text>
+    </td>
+  </tr>
+</table>
+))}
               </Section>
             )}
 
             {/* AI Insights */}
             {reportData?.insights && (
-              <Section style={styles.section}>
-                <Heading style={styles.heading}>FinCoach Insights</Heading>
-                {reportData.insights.map((insight, index) => (
-                  <Text key={index} style={styles.text}>
-                    • {insight}
-                  </Text>
-                ))}
-              </Section>
+             <Section style={styles.section}>
+    <Heading style={styles.heading}>FinCoach Insights</Heading>
+    {reportData.insights.map((insight, index) => (
+      <div key={index} style={{ marginBottom: "16px" }}>
+        <Text style={{ margin: 0, fontSize: "15px" }}>
+          <span style={{ fontWeight: "bold", color: "#1f2937" }}>
+            • {insight.label}:
+          </span>
+          <span style={{ color: "#4b5563" }}> {insight.description}</span>
+        </Text>
+      </div>
+    ))}
+  </Section>
             )}
 
             <Text style={styles.footer}>

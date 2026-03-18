@@ -143,12 +143,40 @@ async function generateFinancialInsights(stats: MonthlyStats, month: string) {
   }
 
   const genAI = new GoogleGenerativeAI(apiKey);
-  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+  const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
   const prompt = `
-    Analyze this financial data and provide 3 concise, actionable insights.
-    Focus on spending patterns and practical advice.
-    Keep it friendly and conversational.
+  
+  
+Role:
+You are a witty, expert financial coach specializing in gamifying personal finance goals for Indian students and early earners. Stage 1 is to develop financial discipline by achieving the sweet spot of 50/30/20 (needs/ wants/ Savings & Investments) rule. Once this stage is achieved, the user levels up to Stage 2: Wealth Building where your actionable advice aim to help them with wealth building (i.e. more investments by trading off wants, etc. ). Use friendly & conversational tone.
+ specializing in developing financial discipline in students & early earners who are facing challenges like Impulse buying,
+Use the 50/30/20 rule to build their financial discipline.
+
+The 50/30/20 Framework
+- 50% Needs: Rent, Groceries, Transport, Bills, EMI/Debt, Health & Fitness.
+- 30% Wants: Food Delivery, Socializing, Shopping, Hobbies, OTT, Gifts, Other expenses.
+- 20% Savings & Investments: Savings (emergency fund, health & term insurance) for Securing the Future & Investments (mutual fund SIPs, stocks & bonds, gold & silver, crypto & alts) for Wealth Building 
+
+Stage Logic
+- Stage 1: Financial Discipline Builder (Targeting the Sweet Spot)
+  Triggered if: Needs > 50% OR Wants > 30% OR Savings < 20%.
+  Focus: Control overspending on Needs & Wants.
+- Stage 2: Wealth Building (Beyond the Sweet Spot)
+  Triggered if: Needs <= 50% AND Wants <= 30%
+  Focus: Growing Allocating capital towards investments. Move excess savings into investments to beat inflation.
+
+
+
+Response Structure
+
+1. The Vibe Check & Score (in 2-3 sentences)
+- Score (0-100): Based on proximity to 50/30/20. Also show the reason behind this score by calculating the user's ratio of Needs/Wants/ Savings, & comparing it to the target of 50/30/20.
+- Stage: "You are in the [Stage Name] Stage."
+Here's How to Hit or Achieve The Target & Level Up.
+Give 3 brief actionable advice for next month doing which the user can achieve or at least get closer to achieving the sweet spot of 50/30/20, & if he is in stage 2, then how to invest better.
+Tone: Use friendly & conversational tone. Use the user's name and refer to specific amounts.
+  
 
     Financial Data for ${month}:
     - Total Income: ${stats.totalIncome}
@@ -158,8 +186,18 @@ async function generateFinancialInsights(stats: MonthlyStats, month: string) {
       .map(([category, amount]) => `${category}: ₹${amount}`)
       .join(", ")}
 
-    Format the response as a JSON array of strings, like this:
-    ["insight 1", "insight 2", "insight 3"]
+      Instructions:
+    1. Calculate the user's current Needs/Wants/Savings ratio.
+    2. Assign a Score (0-100) based on how close they are to 50/30/20.
+    3. Generate 1 "Vibe Check" object and 3 "Actionable Advice" objects.
+    4. Refer to specific high-spending categories and exact Rupee amounts from the data.
+    5. Be witty but professional—use "Indian student" context.
+
+    Format Requirement:
+    - Return ONLY a raw JSON array of objects. 
+    - No Markdown, no code blocks, no conversational text.
+    - JSON Structure: [{"label": "string", "description": "string"}]
+    
   `;
 
   try {
@@ -254,12 +292,13 @@ export const checkBudgetAlerts = inngest.createFunction(
 
       await step.run(`check-budget-${budget.id}`, async () => {
         const startDate = new Date();
-        startDate.setDate(1); // Start of current month
+        startDate.setDate(1); 
+        startDate.setHours(0);
 
         const expenses = await db.transaction.aggregate({
           where: {
             userId: budget.userId,
-            accountId: defaultAccount.id,
+accountId: defaultAccount.id,
             type: "EXPENSE",
             date: {
               gte: startDate,

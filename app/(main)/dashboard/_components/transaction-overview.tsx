@@ -24,13 +24,18 @@ import { cn } from "@/lib/utils";
 import { Account, Transaction } from "@prisma/client";
 
 const COLORS = [
-  "#370617",
-  "#6a040f",
-  "#d00000",
-  "#e85d04",
-  "#faa307",
-  "#ffe53f",
-  "#faf0ca",
+  "#562C2C", //Espresso
+  "#BB3E03", //Rusty Spice
+  "#EE9B00", //Golden Orange
+  "#94D2BD", //Pearl Aqua
+  "#0A9396", //Dark Cyan
+  "#005F73", //Dark Teal
+  "#001219", //Ink Black
+  "#7B2CBF", //Royal Purple
+  "#386641", //Hunter Green
+  "#6A994E", //Sage Green
+  "#90a955", //Palm Leaf
+  "#B69121", //Dark Goldenroad
 ];
 //FF6B6B 
 

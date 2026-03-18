@@ -4,28 +4,27 @@ import { db } from "@/lib/prisma";
 import { subDays } from "date-fns";
 import { Prisma } from "@prisma/client"; // Import Prisma types
 
-const ACCOUNT_ID = "89e1caba-95e9-4a01-93a9-f16778a0755d";
-const USER_ID = "d29edab5-d6c5-493f-928c-a560c5468117";
+const ACCOUNT_ID = "f4118f5f-db73-4f36-9c4c-e4733b330be1";
+const USER_ID = "7055a258-6200-4b54-ba79-923d28fdaa4e";
 
 // Categories with their typical amount ranges
 const CATEGORIES = {
   INCOME: [
     { name: "salary", range: [5000, 8000] },
-    { name: "freelance", range: [1000, 3000] },
+    { name: "allowance", range: [500, 2000] }, 
+    { name: "side-hustle", range: [1000, 3000] },
     { name: "investments", range: [500, 2000] },
-    { name: "other-income", range: [100, 1000] },
+    { name: "cashbacks", range: [50, 500] }, 
   ],
   EXPENSE: [
     { name: "housing", range: [1000, 2000] },
+    { name: "food-groceries", range: [200, 600] }, 
+    { name: "food-delivery", range: [100, 400] },  
     { name: "transportation", range: [100, 500] },
-    { name: "groceries", range: [200, 600] },
     { name: "utilities", range: [100, 300] },
-    { name: "entertainment", range: [50, 200] },
-    { name: "food", range: [50, 150] },
-    { name: "shopping", range: [100, 500] },
-    { name: "healthcare", range: [100, 1000] },
-    { name: "education", range: [200, 1000] },
-    { name: "travel", range: [500, 2000] },
+    { name: "socializing-nightlife", range: [200, 800] },
+    { name: "shopping-fashion", range: [300, 1000] }, 
+    { name: "inv-mutual-funds", range: [500, 1500] }, 
   ],
 };
 
